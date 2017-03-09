@@ -40,6 +40,7 @@ My project includes the following files:
 * model.h5 containing weights of the trained convolution neural network 
 * model.json containing the architecture of the model.
 * writeup.md summarizing the results
+* video.mp4 shows a glimpse of how the car performs on track 1.
 
 ####2. Submission includes functional code
 Using the Udacity provided simulator and my drive.py file, the car can be driven autonomously around the track by executing 
@@ -143,3 +144,5 @@ Trainable params: 1,415,785
 I finally randomly shuffled the data set and put 10-5% of the data into a validation set.
 
 I used this training data for training the model. The validation set helped determine if the model was over or under fitting. The ideal number of epochs was 2-3 with data size in keras fit generator being 3x of training data, given to it. 
+
+Finally, with the final model and weights, the car was tested on track 1 and it was able to drive more than 10 laps and for 15 mins successfully, before I terminated the session. 
