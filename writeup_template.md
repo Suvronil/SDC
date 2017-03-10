@@ -36,7 +36,7 @@ The goals / steps of this project are the following:
 
 ####1. Provide a basic summary of the data set and identify where in your code the summary was done. In the code, the analysis should be done using python, numpy and/or pandas methods rather than hardcoding results manually.
 
-The code for this step is contained in the code cell ?? of the jupyter notebook.  
+The code for this step is contained in the code cell 2-4 of the jupyter notebook.  
 
 I used the pandas library to calculate summary statistics of the traffic
 signs data set:
@@ -48,7 +48,7 @@ signs data set:
 
 ####2. Include an exploratory visualization of the dataset and identify where the code is in your code file.
 
-The code for this step is contained in the code cell ??? of the IPython notebook.  
+The code for this step is contained in the code cells 3,4,7,10,12 of the IPython notebook.  
 
 I have used histograms mostly to explore no. of samples for each class in the dataset. It has been most useful to observe
 the gap between ovr-sampled classes and under-sampled classes.
@@ -61,7 +61,7 @@ I included a small piece of code to check the initial sizes of the images befoe 
 
 ####1. Describe how, and identify where in your code, you preprocessed the image data. What tecniques were chosen and why did you choose these techniques? Consider including images showing the output of each preprocessing technique. Pre-processing refers to techniques such as converting to grayscale, normalization, etc.
 
-The code for this step is contained in the code cell ??? of the IPython notebook.
+The code for this step is contained in the code cell 6 and 13 of the IPython notebook.
 
 Following techniques were used.
 
@@ -80,7 +80,7 @@ Following techniques were used.
 
 ####2. Describe how, and identify where in your code, you set up training, validation and testing data. How much data was in each set? Explain what techniques were used to split the data into these sets. (OPTIONAL: As described in the "Stand Out Suggestions" part of the rubric, if you generated additional data for training, describe why you decided to generate additional data, how you generated the data, identify where in your code, and provide example images of the additional data)
 
-The code for splitting the data into training and validation sets is contained in the  code cell ???? of the IPython notebook.  
+The code for splitting the data into training and validation sets is contained in the  code cell 6 of the IPython notebook.  
 
 To cross validate my model, I randomly split the training data into a training set and validation set. I did this by using train_test_split method of scikit-learn and 30% of the training data was randomly selected to form the validation set.
 
@@ -92,56 +92,11 @@ The code cell# ??? of the IPython notebook contains the code for augmenting the 
 
 The difference between the original data set and the augmented data set is the following ... 
 
-Comparison of the no. of samples present against each class before and after balancing... 
-Class Id :  0 		No. of samples before balancing:  136 		No. of samples after balancing :  545
-Class Id :  1 		No. of samples before balancing:  1560 		No. of samples after balancing :  1560
-Class Id :  2 		No. of samples before balancing:  1595 		No. of samples after balancing :  1595
-Class Id :  3 		No. of samples before balancing:  968 		No. of samples after balancing :  968
-Class Id :  4 		No. of samples before balancing:  1405 		No. of samples after balancing :  1405
-Class Id :  5 		No. of samples before balancing:  1285 		No. of samples after balancing :  1285
-Class Id :  6 		No. of samples before balancing:  280 		No. of samples after balancing :  1120
-Class Id :  7 		No. of samples before balancing:  1005 		No. of samples after balancing :  1005
-Class Id :  8 		No. of samples before balancing:  972 		No. of samples after balancing :  972
-Class Id :  9 		No. of samples before balancing:  1007 		No. of samples after balancing :  1007
-Class Id :  10 		No. of samples before balancing:  1440 		No. of samples after balancing :  1440
-Class Id :  11 		No. of samples before balancing:  919 		No. of samples after balancing :  919
-Class Id :  12 		No. of samples before balancing:  1434 		No. of samples after balancing :  1434
-Class Id :  13 		No. of samples before balancing:  1484 		No. of samples after balancing :  1484
-Class Id :  14 		No. of samples before balancing:  550 		No. of samples after balancing :  550
-Class Id :  15 		No. of samples before balancing:  445 		No. of samples after balancing :  1780
-Class Id :  16 		No. of samples before balancing:  280 		No. of samples after balancing :  1120
-Class Id :  17 		No. of samples before balancing:  792 		No. of samples after balancing :  792
-Class Id :  18 		No. of samples before balancing:  822 		No. of samples after balancing :  822
-Class Id :  19 		No. of samples before balancing:  145 		No. of samples after balancing :  580
-Class Id :  20 		No. of samples before balancing:  254 		No. of samples after balancing :  1016
-Class Id :  21 		No. of samples before balancing:  229 		No. of samples after balancing :  916
-Class Id :  22 		No. of samples before balancing:  291 		No. of samples after balancing :  1164
-Class Id :  23 		No. of samples before balancing:  359 		No. of samples after balancing :  1436
-Class Id :  24 		No. of samples before balancing:  195 		No. of samples after balancing :  780
-Class Id :  25 		No. of samples before balancing:  1049 		No. of samples after balancing :  1049
-Class Id :  26 		No. of samples before balancing:  423 		No. of samples after balancing :  1692
-Class Id :  27 		No. of samples before balancing:  168 		No. of samples after balancing :  672
-Class Id :  28 		No. of samples before balancing:  371 		No. of samples after balancing :  1484
-Class Id :  29 		No. of samples before balancing:  186 		No. of samples after balancing :  744
-Class Id :  30 		No. of samples before balancing:  339 		No. of samples after balancing :  1356
-Class Id :  31 		No. of samples before balancing:  549 		No. of samples after balancing :  549
-Class Id :  32 		No. of samples before balancing:  171 		No. of samples after balancing :  684
-Class Id :  33 		No. of samples before balancing:  482 		No. of samples after balancing :  1928
-Class Id :  34 		No. of samples before balancing:  291 		No. of samples after balancing :  1164
-Class Id :  35 		No. of samples before balancing:  865 		No. of samples after balancing :  865
-Class Id :  36 		No. of samples before balancing:  280 		No. of samples after balancing :  1120
-Class Id :  37 		No. of samples before balancing:  150 		No. of samples after balancing :  600
-Class Id :  38 		No. of samples before balancing:  1447 		No. of samples after balancing :  1447
-Class Id :  39 		No. of samples before balancing:  212 		No. of samples after balancing :  848
-Class Id :  40 		No. of samples before balancing:  252 		No. of samples after balancing :  1008
-Class Id :  41 		No. of samples before balancing:  183 		No. of samples after balancing :  732
-Class Id :  42 		No. of samples before balancing:  176 		No. of samples after balancing :  704
-
-
+Comparison of the no. of samples present against each class before and after balancing is given in the cell # of jupyter notebook. 
 
 ####3. Describe, and identify where in your code, what your final model architecture looks like including model type, layers, layer sizes, connectivity, etc.) Consider including a diagram and/or table describing the final model.
 
-The code for my final model is located in the ???? cell of the ipython notebook. 
+The code for my final model is located in the 13 cell of the ipython notebook. 
 
 My final model consisted of the following layers:
 
