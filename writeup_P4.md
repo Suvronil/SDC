@@ -114,23 +114,13 @@ I did this in lines 149 through 178 in cell 5, within function final_plot.
 4. These pixel space co-ordinates were multiplied with scaling facors to convert into real world values.
 5. Using these real world values, radius of curvature was calculated.
 
-R
-​curve
-​​ =
-​∣2A∣
-​
-​(1+(2Ay+B)
-​2
-​​ )
-​3/2
-​​ 
-​​ 
+ 
 
 ####6. Provide an example image of your result plotted back down onto the road such that the lane area is identified clearly.
 
-I implemented this step in lines # through # in my code in `yet_another_file.py` in the function `map_lane()`.  Here is an example of my result on a test image:
+Finally plotting of the marked lane on the original image is done using the function final_plot. Following is a sample image.
 
-![alt text][image6]
+![vlcsnap-2017-03-11-17h48m54s904](https://cloud.githubusercontent.com/assets/26251015/23823186/0f42d3ae-0683-11e7-927a-1af06797a405.png)
 
 ---
 
@@ -146,5 +136,7 @@ Here's a [link to my video result](./project_video.mp4)
 
 ####1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
 
-Here I'll talk about the approach I took, what techniques I used, what worked and why, where the pipeline might fail and how I might improve it if I were going to pursue this project further.  
+The same pipeline, I tried over the challenge video and harder challenge video and th results were very poor. This shows that this pipeline fails to detect the lines where line is very curvy or has other lines parallal to the lane markings.
+
+
 
