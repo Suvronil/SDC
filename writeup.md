@@ -196,6 +196,7 @@ Image 5 : Class id : 14  # Stop
 
 
 There are few things that might make classification difficult. Such as,
+
 1. Too much of background, which we may say in this case will become noise in the data and will make classification difficult.
 
 2. Poor resolution may affect the classification in few cases. Like, while classifying speed limit of 30 km/h and 80km/h,it may fail, due to similarity of shape among 3 and 8. Poor resolution will add up to the chances of mis-classification.
