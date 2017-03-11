@@ -94,13 +94,37 @@ I verified that my perspective transform was working as expected by drawing the 
 
 ####4. Describe how (and identify where in your code) you identified lane-line pixels and fit their positions with a polynomial?
 
-Then I did some other stuff and fit my lane lines with a 2nd order polynomial kinda like this:
+Then I used `find_lane` function to fit my lane lines with a 2nd order polynomial in the following manner.
 
-![alt text][image5]
+1. First it takes histogram of the binary image to find the concentration of the lane pixels along te axis.
+2. Then it splits the histogram in two halfs, so that left and right lanes can be identified separately.
+3. It identifies the axis along which, the right and left half of the histogram have maximum pixels.
+4. Then it takes a sliding window approach to find the lane pixels.
+5. After this, np.polyfit() function is used to fit these pixels to a second degree polyomial.
+
+
 
 ####5. Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
 
-I did this in lines # through # in my code in `my_other_file.py`
+I did this in lines 149 through 178 in cell 5, within function final_plot.
+
+1. A binary image was created.
+2. For y axis co-ordinates, X co-ordinates were derived using second order polynomial.
+3. Scaling factors were calculated.
+4. These pixel space co-ordinates were multiplied with scaling facors to convert into real world values.
+5. Using these real world values, radius of curvature was calculated.
+
+R
+​curve
+​​ =
+​∣2A∣
+​
+​(1+(2Ay+B)
+​2
+​​ )
+​3/2
+​​ 
+​​ 
 
 ####6. Provide an example image of your result plotted back down onto the road such that the lane area is identified clearly.
 
