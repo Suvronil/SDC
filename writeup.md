@@ -203,6 +203,8 @@ There are few things that might make classification difficult. Such as,
 
 3. Change of perspective also might make classification difficult. Although we can recover this, by training the data with augmented images, where perspecting transform is done.
 
+4. Partial obervation: where possible main content like an arrow of the sign probably has been captured, yet it has missed to capture a minor part of it, may affect the result.If the sign is off-centered in the image for simiar reasons, will also lead to misclassification sometimes. 
+
 
 
 
