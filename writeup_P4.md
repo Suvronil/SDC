@@ -144,5 +144,5 @@ I feel , a way to deal with the difficulties, shown by challenge video would be 
 
 For harder challenge, a more sophisticated process is required to find parallal lines. 
 
-
+Also, the current pipeline take quiet some time to process image and to produce output. Hence, to make this work at real world, it has to be optimized to a great length.
 
