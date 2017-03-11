@@ -122,6 +122,10 @@ Finally plotting of the marked lane on the original image is done using the func
 
 ![vlcsnap-2017-03-11-17h48m54s904](https://cloud.githubusercontent.com/assets/26251015/23823186/0f42d3ae-0683-11e7-927a-1af06797a405.png)
 
+
+In order to make the video processing faster, we skip 20 image frames after processing one. This is because this video runs on 25 fps. Skipping 20 frames, do not impact much. We retain the previously found lane details and combine it with new image, without having to re-calculate th lanes. The code for this can be found in the root function `process_image` in 5th cell of the notebook, between line 270 and 296.
+
+
 ---
 
 ###Pipeline (video)
