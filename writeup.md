@@ -198,6 +198,37 @@ Image 5 : Class id : 14  # Stop
 The model was able to correctly guess all 5 traffic signs, which gives an accuracy of 100%. This compares favorably to the accuracy on the test set of 93.8%.
 
 
-The code for making predictions on my final model is located in the ??? cell of the Ipython notebook.
+
+
+####2. Discuss the model's predictions on these new traffic signs and compare the results to predicting on the test set. Identify where in your code predictions were made. At a minimum, discuss what the predictions were, the accuracy on these new predictions, and compare the accuracy to the accuracy on the test set (OPTIONAL: Discuss the results in more detail as described in the "Stand Out Suggestions" part of the rubric).
+
+The code for making predictions on my final model is located in the 16th cell of the Ipython notebook.
+
+Here are the results of the prediction:
+
+| Image			        |     Prediction	        					| 
+|:---------------------:|:---------------------------------------------:| 
+| Ahead only      		| Ahead only   									| 
+| No passing     			| No passing 										|
+| No entry					| No enty											|
+| Turn left ahead	      		| Turn left ahead					 				|
+| Stop Sign			| Stop Sign      							|
+
+
+The model was able to correctly guess 4 of the 5 traffic signs, which gives an accuracy of 80%. This compares favorably to the accuracy on the test set of ...
+
+####3. Describe how certain the model is when predicting on each of the five new images by looking at the softmax probabilities for each prediction and identify where in your code softmax probabilities were outputted. Provide the top 5 softmax probabilities for each image along with the sign type of each probability. (OPTIONAL: as described in the "Stand Out Suggestions" part of the rubric, visualizations can also be provided such as bar charts)
+
+The code for making predictions on my final model is located in the 16th cell of the Ipython notebook.
+
+Following are probablities, model showed for the correct class.
+
+| Probability         	|     Prediction	        					| 
+|:---------------------:|:---------------------------------------------:| 
+| 1         			| Ahead only   									| 
+| .95     				| No pasing 										|
+| 1					| No entry											|
+| 1	      			| Turn left ahead					 				|
+| 1				    | Stop sign      							|
 
 
