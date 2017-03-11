@@ -170,9 +170,9 @@ I used max pooling to prevent overfitting.
 
 ###Test a Model on New Images
 
-####1. Choose five German traffic signs found on the web and provide them in the report. For each image, discuss what quality or qualities might be difficult to classify.
+####1. Choose five candidate images of traffic signs and provide them in the report. Are there any particular qualities of the image(s) that might make classification difficult?
 
-I chose 5 images similar to the images taken from German traffic sign. Following are the images.
+I chose 5 images from web, similar to the images taken from German traffic sign. Following are the images.
 
 Image 1 : Class id : 35  # Ahead only
 
@@ -195,7 +195,15 @@ Image 5 : Class id : 14  # Stop
 ![5](https://cloud.githubusercontent.com/assets/26251015/23820128/bfc016d4-0637-11e7-8f8c-12e15b2d619e.jpg)
 
 
-The model was able to correctly guess all 5 traffic signs, which gives an accuracy of 100%. This compares favorably to the accuracy on the test set of 93.8%.
+There are few things that might make classification difficult. Such as,
+1. Too much of background, which we may say in this case will become noise in the data and will make classification difficult.
+
+2. Poor resolution may affect the classification in few cases. Like, while classifying speed limit of 30 km/h and 80km/h,it may fail, due to similarity of shape among 3 and 8. Poor resolution will add up to the chances of mis-classification.
+
+3. Change of perspective also might make classification difficult. Although we can recover this, by training the data with augmented images, where perspecting transform is done.
+
+
+
 
 
 
@@ -214,7 +222,7 @@ Here are the results of the prediction:
 | Turn left ahead	      		| Turn left ahead					 				|
 | Stop Sign			| Stop Sign      							|
 
-
+The model was able to correctly guess all 5 traffic signs, which gives an accuracy of 100%. This compares favorably to the accuracy on the test set of 94%.
 
 
 ####3. Describe how certain the model is when predicting on each of the five new images by looking at the softmax probabilities for each prediction and identify where in your code softmax probabilities were outputted. Provide the top 5 softmax probabilities for each image along with the sign type of each probability. (OPTIONAL: as described in the "Stand Out Suggestions" part of the rubric, visualizations can also be provided such as bar charts)
