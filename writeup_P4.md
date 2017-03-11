@@ -128,7 +128,9 @@ Finally plotting of the marked lane on the original image is done using the func
 
 ####1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (wobbly lines are ok but no catastrophic failures that would cause the car to drive off the road!).
 
-Here's a [link to my video result](./project_video.mp4)
+Video has been submitted with this submission.
+
+Here's a [link to my video result](https://github.com/Suvronil/SDC/blob/master/project_output.mp4)(SDC/project_output.mp4)
 
 ---
 
