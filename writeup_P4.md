@@ -136,7 +136,11 @@ Here's a [link to my video result](./project_video.mp4)
 
 ####1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
 
-The same pipeline, I tried over the challenge video and harder challenge video and th results were very poor. This shows that this pipeline fails to detect the lines where line is very curvy or has other lines parallal to the lane markings.
+The same pipeline, I tried over the challenge video and harder challenge video and the results were least to say catastrophic. This shows that this pipeline fails to detect the lines where line is very curvy or has other lines parallal to the lane markings.
+
+I feel , a way to deal with the difficulties, shown by challenge video would be to make color thresholding process better.  
+
+For harder challenge, a more sophisticated process is required to find parallal lines. 
 
 
 
