@@ -174,8 +174,25 @@ I used max pooling to prevent overfitting.
 
 I chose 5 images similar to the images taken from German traffic sign. Following are the images.
 
-![Alt text][1.jpg]
+Image 1 : Class id : 35  # Ahead only
 
+![1](https://cloud.githubusercontent.com/assets/26251015/23820108/534ab57c-0637-11e7-9b38-9ad0f898943b.jpg)
+
+Image 2 : Class id : 9  # No passing
+
+![2](https://cloud.githubusercontent.com/assets/26251015/23820125/bfa7014e-0637-11e7-9ef3-99f90c68dc2f.jpg)
+
+Image 3 : Class id : 17  # No entry
+
+![3](https://cloud.githubusercontent.com/assets/26251015/23820126/bfb4e80e-0637-11e7-879d-d27dbdb997c8.jpg)
+
+Image 4 : Class id : 13  # Turn left ahead
+
+![4](https://cloud.githubusercontent.com/assets/26251015/23820127/bfbd5ffc-0637-11e7-84e7-4a73d24e7021.jpg)
+
+Image 5 : Class id : 14  # Stop
+
+![5](https://cloud.githubusercontent.com/assets/26251015/23820128/bfc016d4-0637-11e7-8f8c-12e15b2d619e.jpg)
 
 
 The model was able to correctly guess all 5 traffic signs, which gives an accuracy of 100%. This compares favorably to the accuracy on the test set of 93.8%.
