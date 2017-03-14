@@ -85,7 +85,12 @@ Following is how the pipeline works.
 3. If it's classified as vehicle, it's added to the list bounding boxes.
 4. Once all the windows are classified and bounding boxes are found, a heatmap is created.
 
-5. We then used a function 'derive_threshold' to generate the threshold for the image. This was done so, as for a video, using a static threshold, across all the frames, was not giving a good result and too many false postives were appearing on the image. 'Derive_threshold' function finds the  
+5. We then used a function 'derive_threshold' to generate the threshold for the image. This was done so, as for a video, using a static threshold, across all the frames, was not giving a good result and too many false postives were appearing on the image. 'Derive_threshold' function gives an optimized threshold based on the detection, achieved for that particular image, so that only the pixels that represents the cars near the camera gets detected.
+
+6. this threshold is then used on the heatmap to nullify all the other values and then to generate labels using scipy.ndimage.measurements.label()`.
+
+7. This labels are then used to draw the bounding boxes on the image using the draw_labeled_bboxes function.
+`
 
 ![alt text][image4]
 ---
@@ -98,7 +103,11 @@ Here's a [link to my video result](./project_video.mp4)?????
 
 ####2. Describe how (and identify where in your code) you implemented some kind of filter for false positives and some method for combining overlapping bounding boxes.
 
-I recorded the positions of positive detections in each frame of the video.  From the positive detections I created a heatmap and then thresholded that map to identify vehicle positions.  I then used `scipy.ndimage.measurements.label()` to identify individual blobs in the heatmap.  I then assumed each blob corresponded to a vehicle.  I constructed bounding boxes to cover the area of each blob detected.  
+I recorded the positions of positive detections in each frame of the video.  From the positive detections I created a heatmap and then thresholded that map , using the dynamically generated threshold from derive_threshold function , to identify vehicle positions.  
+
+I then used `scipy.ndimage.measurements.label()` to identify individual blobs in the heatmap.  I then assumed each blob corresponded to a vehicle.  I constructed bounding boxes to cover the area of each blob detected. 
+
+
 
 Here's an example result showing the heatmap from a series of frames of video, the result of `scipy.ndimage.measurements.label()` and the bounding boxes then overlaid on the last frame of video:
 
@@ -120,5 +129,12 @@ Here's an example result showing the heatmap from a series of frames of video, t
 
 ####1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
 
-Here I'll talk about the approach I took, what techniques I used, what worked and why, where the pipeline might fail and how I might improve it if I were going to pursue this project further.  
+Finding optimized threshold was the major obstacle , while I was working on the video. A single threshold was showing minimal or no false positive in one section, but too many false positives in a different part of the video. It became more problematic, as the car passes through different road conditions and the vehicles passes by from the opposite direction on the left hand side. 
+
+Using dynamic thresholding to a good extent took care oh this problem.
+
+
+My pipeline will likely fail to detect any vehicle that passes horizontally. So if a vehicle comes suddenly passing horizontally, near the turn, it classifier will possibly fail, as it was trained with images of the vehicles taken from behind.
+
+One way to make this pipeline more robust would be to make the sliding window search better and dynamic, so that it makes better choices to decide upon the window sizes by itself. This will eventually help to optimize the search and will help to reduce  the computing time and also it will be effective in otherdriving scenarios than highways.
 
