@@ -21,7 +21,7 @@ The goals / steps of this project are the following:
 
 The code for this step is contained in the first code cell of the IPython notebook (or in lines # through # of the file called `some_file.py`).  
 
-I started by reading in all the `vehicle` and `non-vehicle` images.  Here is an example of one of each of the `vehicle` and `non-vehicle` classes:
+I started by reading in all the `vehicle` and `non-vehicle` images.  
 
 I then explored different color spaces and different `skimage.hog()` parameters (`orientations`, `pixels_per_cell`, and `cells_per_block`).  I grabbed random images from each of the two classes and displayed them to get a feel for what the `skimage.hog()` output looks like.
 
@@ -30,15 +30,6 @@ I finally extracted the following features and concatenated them to for the fina
 2. HOG feature based on the S-channel, after converting the image to HLS colorspace.
 3. HOG feature based on the Y-channel, after converting the image to YCr_Cb colorspace.
 4. Color histogram and spatial binning of the image
-
-
-
-
-![alt text][image1]
-
-
-
-
 
 
 ####2. Explain how you settled on your final choice of HOG parameters.
@@ -66,6 +57,7 @@ epoch = 15 (Although 5 would have sufficed)
 ####1. Describe how (and identify where in your code) you implemented a sliding window search.  How did you decide what scales to search and how much to overlap windows?
 
 After experimenting for sometime, I decided
+
 1. to search only on the lower half of the image as this portion consists of the car and the road.
 2. I divided the lower half of the image into 3 sections or ranges of Y values and decided to use 3 different window sizes((55,55*1.3),(80,80*1.3),(105,105*1.3)), one in each section.*
 3. Smaller window sizes are used near the middle section of the image and as we go further down the image, the window size increases. This helps us to detect vehicles when it's near to the camera and also the ones, far way and appears smaller.
