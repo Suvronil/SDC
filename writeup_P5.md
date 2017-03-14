@@ -51,7 +51,7 @@ I tried various combinations of parameters and finally decided to go ahead with 
 
 ####3. Describe how (and identify where in your code) you trained a classifier using your selected HOG features (and color features if you used them).
 
-I trained a neural network with 1024 neurons and dropout layer with adam optimizer, using Keras. I maintained following values for these parameters.
+I collected the data in with the above mentioned features and normalized them using `normalize_feature` function .I trained a neural network with 1024 neurons and dropout layer with adam optimizer, using Keras. I maintained following values for these parameters.
 
 keep_prob : Input units to drop 0.2 or 20%.
 Loss metric = binary cross-entropy
@@ -60,17 +60,32 @@ epoch = 15 (Although 5 would have sufficed)
 
 
 
+
 ###Sliding Window Search
 
 ####1. Describe how (and identify where in your code) you implemented a sliding window search.  How did you decide what scales to search and how much to overlap windows?
 
-I decided to search random window positions at random scales all over the image and came up with this (ok just kidding I didn't actually ;):
+After experimenting for sometime, I decided
+1. to search only on the lower half of the image as this portion consists of the car and the road.
+2. I divided the lower half of the image into 3 sections or ranges of Y values and decided to use 3 different window sizes((55,55*1.3),(80,80*1.3),(105,105*1.3)), one in each section.*
+3. Smaller window sizes are used near the middle section of the image and as we go further down the image, the window size increases. This helps us to detect vehicles when it's near to the camera and also the ones, far way and appears smaller.
 
-![alt text][image3]
+The code for this can be found in the following section. ????
+
+I decided to go with 0.9 overlapping, as this helps us to detect the edges of the vehicle more precisely, though it costs us more computing time and makes the overall detection process slower.
+
 
 ####2. Show some examples of test images to demonstrate how your pipeline is working.  What did you do to optimize the performance of your classifier?
 
-Ultimately I searched on two scales using YCrCb 3-channel HOG features plus spatially binned color and histograms of color in the feature vector, which provided a nice result.  Here are some example images:
+To optimize the performance of neural network classifier, I decided to add dropout layer, so that it doesn't overfit the training images and trained it with adam optimizer with learning rate of 0.0001.
+
+Following is how the pipeline works.
+1. `test_image` function receives the image  and passes it to the slide_window function to obtain the list of windows.
+2. The portion of the image in these windows are then sent to window_test function for classification.
+3. If it's classified as vehicle, it's added to the list bounding boxes.
+4. Once all the windows are classified and bounding boxes are found, a heatmap is created.
+
+5. We then used a function 'derive_threshold' to generate the threshold for the image. This was done so, as for a video, using a static threshold, across all the frames, was not giving a good result and too many false postives were appearing on the image. 'Derive_threshold' function finds the  
 
 ![alt text][image4]
 ---
@@ -78,7 +93,7 @@ Ultimately I searched on two scales using YCrCb 3-channel HOG features plus spat
 ### Video Implementation
 
 ####1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (somewhat wobbly or unstable bounding boxes are ok as long as you are identifying the vehicles most of the time with minimal false positives.)
-Here's a [link to my video result](./project_video.mp4)
+Here's a [link to my video result](./project_video.mp4)?????
 
 
 ####2. Describe how (and identify where in your code) you implemented some kind of filter for false positives and some method for combining overlapping bounding boxes.
