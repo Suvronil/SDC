@@ -106,6 +106,17 @@ I measured heat per pixel in the clusters found after applying label function on
 From my experience of testing, this on video, I found that false positives usually appear with 1-1.5 value of heat per pixel and can be safely removed. In case, any false positive like, distant cars or cars, being driven on the road beside, gets detected with higher heat per pixel value, it'll be possible to exclude it by the second condition (heat_per_pixel_in_cluster < avg_heat_per_pixel*0.75).
 
 
+For example, below is what I get, when I test this on test5.jpg. It detects 3 clusters (2 cars and 1 false positive). Yet, based on this thresholding condition, it removes cluster 3, marked under cluster having below avg heat per pixel. 
+
+deep learningwith window size50 on test5.jpg
+Heat per pixel count for cluster 1:  5.75120399037
+Heat per pixel count for cluster 2:  6.09472049689
+Heat per pixel count for cluster 3:  2.34657039711
+avg. heat per pixel : 5.55319344534
+No. of detected clusters :  3
+clusters having below avg heat per pixel : [3]
+
+
 6. This threshold is then used on the heatmap to nullify all the other values.
 
 labelmap[labelmap==clusterno] = 0 Labelmap is the image like array received from labels() function.
