@@ -59,10 +59,10 @@ epoch = 15 (Although 5 would have sufficed, I feel)
 After experimenting for sometime, I decided
 
 1. to search only on the lower half of the image as this portion consists of the car and the road.
-2. I divided the lower half of the image into 3 sections or ranges of Y values and decided to use 3 different window sizes((60,60*1.3),(85,85*1.3),(110,110*1.3)), one in each section, but with different overlapping ratio.*
+2. I divided the lower half of the image into 3 sections or ranges of Y values and decided to use 3 different window sizes((50,50*1.3),(75,75*1.3),(100,100*1.3)), one in each section, but with different overlapping ratio.*
 3. Smaller window sizes are used near the middle section of the image and as we go further down the image, the window size increases. This helps us to detect vehicles when it's near to the camera and also the ones, far way and appears smaller.
 
-The code for this can be found in the following section. ????
+The code for this can be found in the function test_image.
 
 I decided to go with 0.9 overlapping, as this helps us to detect the edges of the vehicle more precisely, though it costs us more computing time and makes the overall detection process slower.
 
@@ -82,11 +82,28 @@ Following is how the pipeline works.
 
 I measured heat per pixel in the clusters found after applying label function on the heatmap and then applied the follwing condition, to compare heat per pixel in that cluster and avg heat across all clusters.
 
-if((1.5 > heat_per_pixel_in_cluster) and (heat_per_pixel_in_cluster < avg_heat_per_pixel*0.75)):
-            list_heat_per_pixel_in_cluster.append(clusterno)
-            labelmap[labelmap==clusterno] = 0
+        if labels == 1:                     To counter a scenario, where no car is present, yet a false positive                                                         occurs
+        
+             if((1.6 > heat_per_pixel_in_cluster)):
+                list_heat_per_pixel_in_cluster.append(clusterno)
+                labelmap[labelmap==clusterno] = 0
+        
+        
+           
 
-From my experience of testing this on video, I found that false positives usually appear with 1-1.5 value of heat per pixel and can be safely removed. In case, any false positive like, distant cars or cars, being driven on the road beside, gets detected with higher heat per pixel value, it'll be possible to exclude it by the second condition (heat_per_pixel_in_cluster < avg_heat_per_pixel*0.75).
+        elif (labels>1 and avg_heat_per_pixel<1.7):  `Mostly for scenario, where more than one, yet all false potive are                                                            there.'
+        
+            if((1.3 > heat_per_pixel_in_cluster) or (heat_per_pixel_in_cluster < avg_heat_per_pixel*0.7)):
+                list_heat_per_pixel_in_cluster.append(clusterno)
+                labelmap[labelmap==clusterno] = 0
+               
+        else:                                          'For scenarios where both True and false postives are there.
+        
+            if((3> heat_per_pixel_in_cluster) or (heat_per_pixel_in_cluster < avg_heat_per_pixel*0.75)):
+                list_heat_per_pixel_in_cluster.append(clusterno)
+                labelmap[labelmap==clusterno] = 0
+
+From my experience of testing, this on video, I found that false positives usually appear with 1-1.5 value of heat per pixel and can be safely removed. In case, any false positive like, distant cars or cars, being driven on the road beside, gets detected with higher heat per pixel value, it'll be possible to exclude it by the second condition (heat_per_pixel_in_cluster < avg_heat_per_pixel*0.75).
 
 
 6. This threshold is then used on the heatmap to nullify all the other values.
