@@ -47,7 +47,7 @@ I collected the data in with the above mentioned features and normalized them us
 keep_prob : Input units to drop 0.2 or 20%.
 Loss metric = binary cross-entropy
 Learning rate of the adam optimizer = 0.0001
-epoch = 15 (Although 5 would have sufficed)
+epoch = 15 (Although 5 would have sufficed, I feel)
 
 
 
@@ -59,7 +59,7 @@ epoch = 15 (Although 5 would have sufficed)
 After experimenting for sometime, I decided
 
 1. to search only on the lower half of the image as this portion consists of the car and the road.
-2. I divided the lower half of the image into 3 sections or ranges of Y values and decided to use 3 different window sizes((55,55*1.3),(80,80*1.3),(105,105*1.3)), one in each section.*
+2. I divided the lower half of the image into 3 sections or ranges of Y values and decided to use 3 different window sizes((60,60*1.3),(85,85*1.3),(110,110*1.3)), one in each section, but with different overlapping ratio.*
 3. Smaller window sizes are used near the middle section of the image and as we go further down the image, the window size increases. This helps us to detect vehicles when it's near to the camera and also the ones, far way and appears smaller.
 
 The code for this can be found in the following section. ????
@@ -75,43 +75,41 @@ Following is how the pipeline works.
 1. `test_image` function receives the image  and passes it to the slide_window function to obtain the list of windows.
 2. The portion of the image in these windows are then sent to window_test function for classification.
 3. If it's classified as vehicle, it's added to the list bounding boxes.
-4. Once all the windows are classified and bounding boxes are found, a heatmap is created.
+4. Once all the windows are classified and bounding boxes are found, a heatmap is created. 
+5. This heatmap is initially passed to scipy.ndimage.measurements.label()`to generate labels or clusters.
 
-5. We then used a function 'derive_threshold' to generate the threshold for the image. This was done so, as for a video, using a static threshold, across all the frames, was not giving a good result and too many false postives were appearing on the image. 'Derive_threshold' function gives an optimized threshold based on the detection, achieved for that particular image, so that only the pixels that represents the cars near the camera gets detected.
+6. I then used a function 'apply_threshold' to generate the threshold for the image, dynamically. This was done so, as for a video, using a static threshold, across all the frames, was not giving a good result and too many false postives were appearing on the images. 'apply_threshold' function gives an optimized threshold based on the detection, achieved for that particular image, so that only the pixels that represents the cars near the camera gets detected.
 
-6. this threshold is then used on the heatmap to nullify all the other values and then to generate labels using scipy.ndimage.measurements.label()`.
+I measured heat per pixel in the clusters found after applying label function on the heatmap and then applied the follwing condition, to compare heat per pixel in that cluster and avg heat across all clusters.
+
+if((1.5 > heat_per_pixel_in_cluster) and (heat_per_pixel_in_cluster < avg_heat_per_pixel*0.75)):
+            list_heat_per_pixel_in_cluster.append(clusterno)
+            labelmap[labelmap==clusterno] = 0
+
+From my experience of testing this on video, I found that false positives usually appear with 1-1.5 value of heat per pixel and can be safely removed. In case, any false positive like, distant cars or cars, being driven on the road beside, gets detected with higher heat per pixel value, it'll be possible to exclude it by the second condition (heat_per_pixel_in_cluster < avg_heat_per_pixel*0.75).
+
+
+6. This threshold is then used on the heatmap to nullify all the other values.
+
+labelmap[labelmap==clusterno] = 0 Labelmap is the image like array received from labels() function.
+
+After this the labelmap is passed again to labels() function to generate the final_labels, which has the final clusters with cars.
 
 7. This labels are then used to draw the bounding boxes on the image using the draw_labeled_bboxes function.
 `
 
-![alt text][image4]
----
 
 ### Video Implementation
 
 ####1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (somewhat wobbly or unstable bounding boxes are ok as long as you are identifying the vehicles most of the time with minimal false positives.)
-Here's a [link to my video result](./project_video.mp4)?????
+Here's a [link to my video result](./project_video_output.mp4)
 
 
 ####2. Describe how (and identify where in your code) you implemented some kind of filter for false positives and some method for combining overlapping bounding boxes.
 
-I recorded the positions of positive detections in each frame of the video.  From the positive detections I created a heatmap and then thresholded that map , using the dynamically generated threshold from derive_threshold function , to identify vehicle positions.  
+I recorded the positions of positive detections in each frame of the video.  From the positive detections I created a heatmap and then thresholded that map , using the dynamically generated threshold from apply_threshold function , to identify vehicle positions.  
 
 I then used `scipy.ndimage.measurements.label()` to identify individual blobs in the heatmap.  I then assumed each blob corresponded to a vehicle.  I constructed bounding boxes to cover the area of each blob detected. 
-
-
-
-Here's an example result showing the heatmap from a series of frames of video, the result of `scipy.ndimage.measurements.label()` and the bounding boxes then overlaid on the last frame of video:
-
-### Here are six frames and their corresponding heatmaps:
-
-![alt text][image5]
-
-### Here is the output of `scipy.ndimage.measurements.label()` on the integrated heatmap from all six frames:
-![alt text][image6]
-
-### Here the resulting bounding boxes are drawn onto the last frame in the series:
-![alt text][image7]
 
 
 
@@ -121,12 +119,12 @@ Here's an example result showing the heatmap from a series of frames of video, t
 
 ####1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
 
-Finding optimized threshold was the major obstacle , while I was working on the video. A single threshold was showing minimal or no false positive in one section, but too many false positives in a different part of the video. It became more problematic, as the car passes through different road conditions and the vehicles passes by from the opposite direction on the left hand side. 
+Finding optimized threshold was the major obstacle , while I was working on the video. A single threshold was showing minimal or no false positive in one section, but too many false positives in a different part of the video. It became more problematic, as the car passes through different road conditions and the vehicles drive by, from the opposite direction on the left hand side. 
 
-Using dynamic thresholding to a good extent took care oh this problem.
+Using dynamic thresholding to a good extent took care of this problem.
 
 
-My pipeline will likely fail to detect any vehicle that passes horizontally. So if a vehicle comes suddenly passing horizontally, near the turn, it classifier will possibly fail, as it was trained with images of the vehicles taken from behind.
+My pipeline will likely fail to detect any vehicle that passes horizontally. So if a vehicle comes suddenly passing horizontally, near the turn at road, classifier will possibly fail, as it was trained with images of the vehicles, taken from behind.
 
-One way to make this pipeline more robust would be to make the sliding window search better and dynamic, so that it makes better choices to decide upon the window sizes by itself. This will eventually help to optimize the search and will help to reduce  the computing time and also it will be effective in otherdriving scenarios than highways.
+One way to make this pipeline more robust would be to make the sliding window search better and dynamic, so that it makes better choices to decide upon the window sizes by itself. This will eventually help to optimize the search and will help to reduce  the computing time and also it will be effective in other driving scenarios, apart from highways.For example, if we are driving in city, we do not have the scope of ignoring the upper half of the image always.
 
