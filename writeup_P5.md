@@ -82,26 +82,27 @@ Following is how the pipeline works.
 
 I measured heat per pixel in the clusters found after applying label function on the heatmap and then applied the follwing condition, to compare heat per pixel in that cluster and avg heat across all clusters.
 
-        if labels == 1:                     To counter a scenario, where no car is present, yet a false positive                                                         occurs
+        if labels == 1:                    # To counter a scenario, where no car is present, yet a false positive                                                         occurs
         
-             if((1.6 > heat_per_pixel_in_cluster)):
+             if((3 > heat_per_pixel_in_cluster)):
                 list_heat_per_pixel_in_cluster.append(clusterno)
                 labelmap[labelmap==clusterno] = 0
         
         
-           
+                                                # For scenarios, where multiple false positives occurs
 
-        elif (labels>1 and avg_heat_per_pixel<1.7):  `Mostly for scenario, where more than one, yet all false potive are                                                            there.'
-        
-            if((1.3 > heat_per_pixel_in_cluster) or (heat_per_pixel_in_cluster < avg_heat_per_pixel*0.7)):
+        elif (labels>1 and avg_heat_per_pixel<2.8): 
+            if((1.5 > heat_per_pixel_in_cluster) or (heat_per_pixel_in_cluster < avg_heat_per_pixel*0.7)):
                 list_heat_per_pixel_in_cluster.append(clusterno)
                 labelmap[labelmap==clusterno] = 0
                
-        else:                                          'For scenarios where both True and false postives are there.
-        
-            if((3> heat_per_pixel_in_cluster) or (heat_per_pixel_in_cluster < avg_heat_per_pixel*0.75)):
-                list_heat_per_pixel_in_cluster.append(clusterno)
-                labelmap[labelmap==clusterno] = 0
+                                                 # For scenarios where both true positives and false positives occur      
+               
+        else: 
+            if ((4 > heat_per_pixel_in_cluster)):
+                if(heat_per_pixel_in_cluster < avg_heat_per_pixel*0.7):
+                    list_heat_per_pixel_in_cluster.append(clusterno)
+                    labelmap[labelmap==clusterno] = 0
 
 From my experience of testing, this on video, I found that false positives usually appear with 1-1.5 value of heat per pixel and can be safely removed. In case, any false positive like, distant cars or cars, being driven on the road beside, gets detected with higher heat per pixel value, it'll be possible to exclude it by the second condition (heat_per_pixel_in_cluster < avg_heat_per_pixel*0.75).
 
@@ -116,6 +117,10 @@ avg. heat per pixel : 5.55319344534
 No. of detected clusters :  3
 clusters having below avg heat per pixel : [3]
 
+Following is an example of clusters detected before thresholding (taken from heatmap) and clusters remaining after thresholding and removal of false positive. Image used is the test image test3.jpg.
+
+
+![test 3 example](https://cloud.githubusercontent.com/assets/26251015/23975427/a2d82aca-0a06-11e7-903a-1cd73c0bb6e6.png)
 
 6. This threshold is then used on the heatmap to nullify all the other values.
 
@@ -125,6 +130,10 @@ After this the labelmap is passed again to labels() function to generate the fin
 
 7. This labels are then used to draw the bounding boxes on the image using the draw_labeled_bboxes function.
 `
+Final image output example : 
+
+
+![deep learning with window size60 on test1](https://cloud.githubusercontent.com/assets/26251015/23975474/f844d8be-0a06-11e7-9ee7-8990dd5bbddc.jpg)
 
 
 ### Video Implementation
