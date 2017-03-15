@@ -129,6 +129,8 @@ labelmap[labelmap==clusterno] = 0 Labelmap is the image like array received from
 After this the labelmap is passed again to labels() function to generate the final_labels, which has the final clusters with cars.
 
 7. This labels are then used to draw the bounding boxes on the image using the draw_labeled_bboxes function.
+
+
 `
 Final image output example : 
 
@@ -139,7 +141,9 @@ Final image output example :
 ### Video Implementation
 
 ####1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (somewhat wobbly or unstable bounding boxes are ok as long as you are identifying the vehicles most of the time with minimal false positives.)
-Here's a [link to my video result](./project_video_output.mp4)
+
+
+Here's a [link to my video result]https://github.com/Suvronil/SDC/blob/master/project_video_output.mp4(SDC/project_video_output.mp4)
 
 
 ####2. Describe how (and identify where in your code) you implemented some kind of filter for false positives and some method for combining overlapping bounding boxes.
